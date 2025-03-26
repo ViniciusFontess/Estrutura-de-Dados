@@ -22,7 +22,7 @@ public:
   ~TabelaDispersao();
   void insere(int x);
   bool busca(int x);
-  bool remove(int x);
+  bool remover(int x);
   double fator_carga();
   int elementos(); // devolve a quantidade de elementos
   void escreve();
@@ -39,12 +39,9 @@ int main(void)
     tabela.insere(5);
     tabela.insere(4);
     tabela.insere(3);
-
+    tabela.remover(3);
 
     printf("%d",tabela.elementos());
-    tabela.~TabelaDispersao();
-
-
 
   return 0;
 }
@@ -94,19 +91,18 @@ bool TabelaDispersao::busca(int x)
 
 }
 
-bool TabelaDispersao::remove(int x)
+bool TabelaDispersao::remover(int x)
 {
   // FAZER: varrer a lista em tabela[h(x)], removendo a célula com x se encontrar e devolvendo true, ou devolvendo false se não encontrar
   Celula *p = tabela[h(x)];
   Celula *ant = nullptr;
-  printf("Entrou");
-    while(p != nullptr && p->chave != x){
+  while(p != nullptr && p->chave != x){
       ant = p;
       p = p->prox;
     }
-    if(p->chave == x){
+    if(p!= nullptr && p->chave == x){
       if(ant == nullptr)
-        tabela[h(x)] == nullptr;
+        tabela[h(x)] = p->prox;
       else
         ant->prox = p->prox;
       delete p;
